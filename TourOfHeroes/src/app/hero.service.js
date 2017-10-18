@@ -16,19 +16,22 @@ var HeroService = (function () {
     function HeroService(http) {
         this.http = http;
         this.headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-        this.heroesUrl = 'api/heroes'; // URL to web api
+        //private heroesUrl = 'api/heroes';  // URL to web api
+        this.heroesUrl = 'http://localhost:61925/api/tourofheroes'; // URL to web api
     }
     HeroService.prototype.getHeroes = function () {
         return this.http.get(this.heroesUrl)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) {
+            return response.json();
+        })
             .catch(this.handleError);
     };
     HeroService.prototype.getHero = function (id) {
         var url = this.heroesUrl + "/" + id;
         return this.http.get(url)
             .toPromise()
-            .then(function (response) { return response.json().data; })
+            .then(function (response) { return response.json(); })
             .catch(this.handleError);
     };
     HeroService.prototype.delete = function (id) {
@@ -42,7 +45,7 @@ var HeroService = (function () {
         return this.http
             .post(this.heroesUrl, JSON.stringify({ name: name }), { headers: this.headers })
             .toPromise()
-            .then(function (res) { return res.json().data; })
+            .then(function (res) { return res.json(); })
             .catch(this.handleError);
     };
     HeroService.prototype.update = function (hero) {

@@ -36,8 +36,9 @@ namespace CoreAPI
             
             // CORS settings.
             app.UseCors(builder =>
-               builder.WithOrigins("http://localhost:60698")
-               .AllowAnyHeader());
+               builder.WithOrigins("http://localhost:60698", "http://localhost:4200", "http://localhost:3000")
+               .AllowAnyHeader()
+               .AllowAnyMethod());
 
             app.UseMvc();
         }

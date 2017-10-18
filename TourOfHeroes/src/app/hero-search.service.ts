@@ -13,7 +13,7 @@ export class HeroSearchService {
 
   search(term: string): Observable<Hero[]> {
     return this.http
-               .get(`api/heroes/?name=${term}`)
+               .get(`http://localhost:61925/api/tourofheroes/?name=${term}`)
                .map(response => response.json().data as Hero[]);
   }
 }
