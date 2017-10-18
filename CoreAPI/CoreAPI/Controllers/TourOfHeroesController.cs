@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CoreAPI.Controllers
 {
@@ -29,6 +30,7 @@ namespace CoreAPI.Controllers
         
         // GET api/tourofheroes
         [HttpGet]
+        [Authorize]
         public string Get()
         {
             return JsonConvert.SerializeObject(heroes);
@@ -36,6 +38,7 @@ namespace CoreAPI.Controllers
 
         // GET api/tourofheroes/5
         [HttpGet("{id}")]
+        [Authorize]
         public string Get(int id)
         {
             return JsonConvert.SerializeObject(heroes.Where(x=> x.id == id).FirstOrDefault());
@@ -43,6 +46,7 @@ namespace CoreAPI.Controllers
 
         // POST api/tourofheroes
         [HttpPost]
+        [Authorize]
         public string Post([FromBody]Hero value)
         {
             value.id = nextId;
@@ -54,6 +58,7 @@ namespace CoreAPI.Controllers
 
         // PUT api/tourofheroes/5
         [HttpPut("{id}")]
+        [Authorize]
         public void Put(int id, [FromBody]Hero value)
         {
             var thisHero = heroes.Where(x => x.id == id).FirstOrDefault();
@@ -62,6 +67,7 @@ namespace CoreAPI.Controllers
 
         // DELETE api/tourofheroes/5
         [HttpDelete("{id}")]
+        [Authorize]
         public void Delete(int id)
         {
             var thisHero = heroes.Where(x => x.id == id).FirstOrDefault();

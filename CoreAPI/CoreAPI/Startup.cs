@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace CoreAPI
 {
@@ -24,6 +20,18 @@ namespace CoreAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+               .AddJwtBearer(options =>
+                   {
+                       // base-address of your identityserver
+                       options.Authority = "http://localhost:5000"; // Auth Server
+
+                       options.RequireHttpsMetadata = false;
+
+                       // name of the API resource
+                       options.Audience = "tour_of_heroes_api";
+                   });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,13 +41,14 @@ namespace CoreAPI
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+
             // CORS settings.
             app.UseCors(builder =>
                builder.WithOrigins("http://localhost:60698", "http://localhost:4200", "http://localhost:3000")
                .AllowAnyHeader()
                .AllowAnyMethod());
 
+            app.UseAuthentication();
             app.UseMvc();
         }
     }

@@ -30,10 +30,12 @@
       '@angular/upgrade': 'npm:@angular/upgrade/bundles/upgrade.umd.js',
       '@angular/upgrade/static': 'npm:@angular/upgrade/bundles/upgrade-static.umd.js',
 
-      // other libraries
+      // other libraries      
       'rxjs':                      'npm:rxjs',
       'tslib':                     'npm:tslib/tslib.js',
-      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js'
+      'oidc-client':               'npm:oidc-client',
+      'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
+      'traceur':'npm:traceur/bin'
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {
@@ -48,6 +50,13 @@
       },
       rxjs: {
         defaultExtension: 'js'
+      },
+      'oidc-client': {
+        main: './lib/oidc-client.js',
+        defaultExtension: 'js'
+      },
+      traceur:{
+        main: 'traceur'
       }
     }
   });
